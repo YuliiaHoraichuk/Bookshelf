@@ -1,10 +1,12 @@
 import customtkinter as ctk
 from view.login_display import LoginDisplay
 
+# Main app controller
 class BookshelfApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.current_frame = None
+        self.minsize
 
         self.login_frame = LoginDisplay(self)
 
