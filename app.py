@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from view.login_display import LoginDisplay
 from controller.auth_controller import AuthController
+from config import BACKGROUND_COLOR
 
 # Main app controller
 class BookshelfApp(ctk.CTk):
@@ -23,7 +24,7 @@ class BookshelfApp(ctk.CTk):
         if self.current_frame:
             self.current_frame.destroy()
 
-        self.current_frame = frame(self, auth_controller=self.auth_controller,fg_color="#fffeed")
+        self.current_frame = frame(self, auth_controller=self.auth_controller,fg_color=BACKGROUND_COLOR)
         self.current_frame.grid(row=0, column=0, sticky="nsew")
 
         self.grid_rowconfigure(0, weight=1)

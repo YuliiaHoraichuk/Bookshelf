@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from config import FONT_ACCENT_COLOR
 
 class LoginDisplay(ctk.CTkFrame):
     def __init__(self, parent, auth_controller, fg_color=None, **kwargs):
@@ -9,7 +10,7 @@ class LoginDisplay(ctk.CTkFrame):
 
 # Welcome message
         self.welcome_message = ctk.CTkLabel(self, text="Welcome to the Bookshelf App!", font=("Garamond", 24, "bold"),
-                                  text_color="#f76fb1")
+                                  text_color=FONT_ACCENT_COLOR)
         self.welcome_message.grid(row=0, column=1, columnspan=2, pady=(30,10))
 
 # Error message label ROW 1 -- normally hidden

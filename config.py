@@ -1,0 +1,4 @@
+# Colours
+
+BACKGROUND_COLOR = "#fffeed"
+FONT_ACCENT_COLOR = "#F462A9"
