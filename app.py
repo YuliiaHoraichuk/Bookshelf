@@ -1,26 +1,40 @@
 import customtkinter as ctk
 from view.login_display import LoginDisplay
+from controller.auth_controller import AuthController
 
 # Main app controller
 class BookshelfApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.current_frame = None
-        self.minsize
-
-        self.login_frame = LoginDisplay(self)
 
         self.title("Bookshelf App")
+        self.geometry("1000x700")
+        self.minsize(400,500)
+
+        self.current_frame = None
+
+        self.auth_controller = AuthController(self)
 
 # Load login display on launch
-        self.switch_frame(self.login_frame)
+        self.show_login()
 
+# Switch between frames
     def switch_frame(self, frame):
         if self.current_frame:
             self.current_frame.destroy()
 
-        self.current_frame = frame
-        self.current_frame.grid()
+        self.current_frame = frame(self, auth_controller=self.auth_controller,fg_color="#fffeed")
+        self.current_frame.grid(row=0, column=0, sticky="nsew")
+
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+# Switch display to login
+    def show_login(self):
+        self.switch_frame(LoginDisplay)
+
+    #def show_signup(self):
+    #    self.switch_frame()
 
 
 app = BookshelfApp()

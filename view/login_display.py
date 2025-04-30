@@ -1,15 +1,16 @@
 import customtkinter as ctk
 
 class LoginDisplay(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        #self.controller = controller
+    def __init__(self, parent, auth_controller, fg_color=None, **kwargs):
+        super().__init__(parent, fg_color=fg_color, **kwargs)
+        self.auth_controller = auth_controller
 
         self.columnconfigure(2, weight=1)
 
 # Welcome message
-        self.welcome_message = ctk.CTkLabel(self, text="Welcome to the Bookshelf App!", font=("Helvetica", 16))
-        self.welcome_message.grid(row=0, column=1, columnspan=2, pady=10)
+        self.welcome_message = ctk.CTkLabel(self, text="Welcome to the Bookshelf App!", font=("Garamond", 24, "bold"),
+                                  text_color="#f76fb1")
+        self.welcome_message.grid(row=0, column=1, columnspan=2, pady=(30,10))
 
 # Error message label ROW 1 -- normally hidden
         self.error_message = ctk.CTkLabel(self, text="") # ADD ERROR TXT LATER
@@ -41,5 +42,11 @@ class LoginDisplay(ctk.CTkFrame):
         self.password_input.grid(row=4, column=2, padx=20, pady=10)
 
 # Log In button
-        self.login_button = ctk.CTkButton(self, text="Login", command="")
+        self.login_button = ctk.CTkButton(self, text="Login", command="") # ADD COMMAND LATER
         self.login_button.grid(row=5, column=1, padx=20, pady=10)
+
+# Pass username and password to the auth_controller
+        def login(self):
+            username = self.username_input.get()
+            password = self.password_input.get()
+            self.auth_controller.handle_login(username, password)
