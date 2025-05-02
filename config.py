@@ -1,4 +1,11 @@
 # Colours
 
 BACKGROUND_COLOR = "#fffeed"
-FONT_ACCENT_COLOR = "#F462A9"
+#ACCENT_COLOR_1 = "#F462A9" # muted pink
+#ACCENT_COLOR_1 = "#fa439c" # bright pink
+ACCENT_COLOR_1 = "#5e19ff" # Electric Violet
+#ACCENT_COLOR_1 = "#fc145e" # redder
+
+#ACCENT_COLOR_2 = "#fc1c63" # Radical Red
+#ACCENT_COLOR_2 = "#0d51fc" # Electric Violet
+ACCENT_COLOR_2 = "#4f14d9" # Blue
