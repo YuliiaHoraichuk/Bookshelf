@@ -1,15 +1,15 @@
 import customtkinter as ctk
-from config import ACCENT_COLOR_1, ACCENT_COLOR_2, BACKGROUND_COLOR
+from config import ACCENT_COLOR_1, ACCENT_COLOR_2, ACCENT_COLOR_3, BACKGROUND_COLOR
 
 
 class LoginDisplay(ctk.CTkFrame):
-    def __init__(self, parent, auth_controller, fg_color=None, **kwargs):
-        super().__init__(parent, fg_color=fg_color, **kwargs)
+    def __init__(self, parent, auth_controller, **kwargs):
+        super().__init__(parent, **kwargs)
 
         self.auth_controller = auth_controller
 
 # Frame: Login and Password input fields
-        self.input_frame = InputFrame(self, border_color=ACCENT_COLOR_1, border_width=2, fg_color=fg_color)
+        self.input_frame = InputFrame(self, fg_color=ACCENT_COLOR_3, border_color=ACCENT_COLOR_1, border_width=2)
         self.input_frame.grid(row=3, column=0, columnspan=2, pady=20, sticky="nsew")
 
 # Label: Welcome message
@@ -32,14 +32,15 @@ class LoginDisplay(ctk.CTkFrame):
 # Button: Switch to the Login frame
         self.switch_to_login = ctk.CTkButton(self.button_switch_frame, width=150, height=50, text="Log In",
                                              font=("Arial", 18), text_color="#fff",
-                                             fg_color=ACCENT_COLOR_1, hover_color=ACCENT_COLOR_2,
+                                             fg_color=ACCENT_COLOR_1, hover_color=ACCENT_COLOR_1,
                                              corner_radius=2, command="") # ADD COMMAND LATER
         self.switch_to_login.grid(row=0, column=0, pady=(50,0), sticky="ew")
 
 # Button: Switch to the Signup frame
         self.switch_to_signup = ctk.CTkButton(self.button_switch_frame, width=150, height=50, text="Sign Up",
                                               font=("Arial", 18), text_color=ACCENT_COLOR_1,
-                                              fg_color=BACKGROUND_COLOR, border_color=ACCENT_COLOR_1, border_width=2,
+                                              fg_color=BACKGROUND_COLOR, hover_color=ACCENT_COLOR_3,
+                                              border_color=ACCENT_COLOR_1, border_width=2,
                                               corner_radius=2, command="") # ADD COMMAND LATER
         self.switch_to_signup.grid(row=0, column=1, pady=(50,0), sticky="ew")
 
@@ -56,7 +57,7 @@ class LoginDisplay(ctk.CTkFrame):
 
 # Frame: Login and Password input fields
 class InputFrame(ctk.CTkFrame):
-    def __init__(self, parent, **kwargs):
+    def __init__(self, parent, include_confirm_password=False, **kwargs):
         super().__init__(parent, **kwargs)
 
 # 2 columns: label and input
@@ -69,7 +70,9 @@ class InputFrame(ctk.CTkFrame):
         self.username_label.grid(row=0, column=0, padx=(30,0), pady=(30,10), sticky="w")
 
         # Input
-        self.username_input = ctk.CTkEntry(self, corner_radius=25, border_color=ACCENT_COLOR_1, fg_color=BACKGROUND_COLOR)
+        self.username_input = ctk.CTkEntry(self, font=("Arial", 18), corner_radius=25,
+                                           border_color=ACCENT_COLOR_1,
+                                           fg_color=BACKGROUND_COLOR)
         self.username_input.grid(row=0, column=1, ipady=3, padx=(0,30), pady=(30,10), sticky="ew")
 
 # Password label and input
@@ -78,9 +81,17 @@ class InputFrame(ctk.CTkFrame):
         self.password_label.grid(row=1, column=0, padx=(30,0), pady=(10,30), sticky="w")
 
         # Input
-        self.password_input = ctk.CTkEntry(self, show="*", corner_radius=25, border_color=ACCENT_COLOR_1,
+        self.password_input = ctk.CTkEntry(self, font=("Arial", 18), show="*", corner_radius=25,
+                                           border_color=ACCENT_COLOR_1,
                                            fg_color=BACKGROUND_COLOR)
         self.password_input.grid(row=1, column=1, ipady=3, padx=(0,30), pady=(10,30), sticky="ew")
+
+        if include_confirm_password:
+            self.confirm_password_label = ctk.CTkLabel(self, text="Confirm Password:", font=("Arial", 20), text_color=ACCENT_COLOR_1)
+            self.confirm_password_label.grid(row=2, column=0, padx=(30,0), pady=(10,30), sticky="w")
+
+            self.confirm_password_input = ctk.CTkEntry(self, font=("Arial", 18), show="*", corner_radius=25, border_color=ACCENT_COLOR_1, fg_color=BACKGROUND_COLOR)
+            self.confirm_password_input.grid(row=2, column=1, ipady=3, padx=(0,30), pady=(10,30), sticky="ew")
 
     def get_credentials(self):
         return self.username_input.get(), self.password_input.get()
