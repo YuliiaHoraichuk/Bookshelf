@@ -3,26 +3,23 @@ from config import ACCENT_COLOR_1, ACCENT_COLOR_2, ACCENT_COLOR_3, BACKGROUND_CO
 
 
 class LoginDisplay(ctk.CTkFrame):
-    def __init__(self, parent, auth_controller, **kwargs):
+    def __init__(self, parent, main_controller, auth_controller, **kwargs):
         super().__init__(parent, **kwargs)
 
+        self.main_controller = main_controller
         self.auth_controller = auth_controller
-
-# Frame: Login and Password input fields
-        self.input_frame = InputFrame(self, fg_color=ACCENT_COLOR_3, border_color=ACCENT_COLOR_1, border_width=2)
-        self.input_frame.grid(row=3, column=0, columnspan=2, pady=20, sticky="nsew")
 
 # Label: Welcome message
         self.welcome_message = ctk.CTkLabel(self, text="Welcome to the Bookshelf App!", font=("Garamond", 28, "bold"),
                                             text_color=ACCENT_COLOR_1)
-        self.welcome_message.grid(row=0, column=0, columnspan=2, pady=(100,0))
+        self.welcome_message.grid(row=0, column=0, columnspan=2, pady=(130,0))
 
 # Label: Error message ROW 1 -- normally hidden
         self.error_message = ctk.CTkLabel(self, text="") # ADD ERROR TXT LATER
         self.error_message.grid(row=1, column=1, padx=20, pady=10)
         self.error_message.grid_forget()
 
-# Frame: Switch between the LOG IN / SIGN UP frames
+# Frame: Switch between the LOGIN / SIGNUP frames
         self.button_switch_frame = ctk.CTkFrame(self, fg_color=BACKGROUND_COLOR)
         self.button_switch_frame.grid(row=2, column=0, columnspan=2, pady=10, sticky="ew")
 
@@ -41,8 +38,12 @@ class LoginDisplay(ctk.CTkFrame):
                                               font=("Arial", 18), text_color=ACCENT_COLOR_1,
                                               fg_color=BACKGROUND_COLOR, hover_color=ACCENT_COLOR_3,
                                               border_color=ACCENT_COLOR_1, border_width=2,
-                                              corner_radius=2, command="") # ADD COMMAND LATER
+                                              corner_radius=2, command=self.main_controller.show_signup)
         self.switch_to_signup.grid(row=0, column=1, pady=(50,0), sticky="ew")
+
+# Frame: Login and Password input fields
+        self.input_frame = InputFrame(self, fg_color=ACCENT_COLOR_3, border_color=ACCENT_COLOR_1, border_width=2)
+        self.input_frame.grid(row=3, column=0, columnspan=2, pady=20, sticky="nsew")
 
 # Button: Log In
         self.login_button = ctk.CTkButton(self, width=150, height=50, text="Log In", font=("Arial", 18),
@@ -52,8 +53,9 @@ class LoginDisplay(ctk.CTkFrame):
         self.login_button.grid(row=4, column=0, columnspan=2, pady=20, sticky="ew")
 
 # Pass username and password to the auth_controller
-        def login(self):
-            self.auth_controller.handle_login(self.input_frame.get_credentials())
+    def login(self):
+        self.auth_controller.handle_login(self.input_frame.get_credentials())
+
 
 # Frame: Login and Password input fields
 class InputFrame(ctk.CTkFrame):
